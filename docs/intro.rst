@@ -1,9 +1,9 @@
-.. currentmodule:: pep8
+.. currentmodule:: pycodestyle
 
 Introduction
 ============
 
-pep8 is a tool to check your Python code against some of the style
+pycodestyle is a tool to check your Python code against some of the style
 conventions in `PEP 8`_.
 
 .. contents::
@@ -18,7 +18,7 @@ Features
 * Parseable output: Jump to error location in your editor.
 
 * Small: Just one Python file, requires only stdlib.  You can use just
-  the pep8.py file for this purpose.
+  the ``pycodestyle.py`` file for this purpose.
 
 * Comes with a comprehensive test suite.
 
@@ -40,11 +40,11 @@ Always remember this statement from `PEP 8`_:
 
 
 Among other things, these features are currently not in the scope of
-the ``pep8`` library:
+the ``pycodestyle`` library:
 
 * **naming conventions**: this kind of feature is supported through plugins.
-  Install `flake8 <https://pypi.python.org/pypi/flake8>`_ and the
-  `pep8-naming extension <https://pypi.python.org/pypi/pep8-naming>`_ to use
+  Install `flake8 <https://pypi.org/project/flake8/>`_ and the
+  `pep8-naming extension <https://pypi.org/project/pep8-naming/>`_ to use
   this feature.
 * **docstring conventions**: they are not in the scope of this library;
   see the `pydocstyle project <https://github.com/PyCQA/pydocstyle>`_.
@@ -55,16 +55,11 @@ the ``pep8`` library:
 Installation
 ------------
 
-You can install, upgrade, uninstall pep8.py with these commands::
+You can install, upgrade, uninstall ``pycodestyle.py`` with these commands::
 
-  $ pip install pep8
-  $ pip install --upgrade pep8
-  $ pip uninstall pep8
-
-There's also a package for Debian/Ubuntu, but it's not always the
-latest version::
-
-  $ sudo apt-get install pep8
+  $ pip install pycodestyle
+  $ pip install --upgrade pycodestyle
+  $ pip uninstall pycodestyle
 
 
 Example usage and output
@@ -72,7 +67,7 @@ Example usage and output
 
 ::
 
-  $ pep8 --first optparse.py
+  $ pycodestyle --first optparse.py
   optparse.py:69:11: E401 multiple imports on one line
   optparse.py:77:1: E302 expected 2 blank lines, found 1
   optparse.py:88:5: E301 expected 1 blank line, found 0
@@ -82,10 +77,10 @@ Example usage and output
   optparse.py:472:29: E221 multiple spaces before operator
   optparse.py:544:21: W601 .has_key() is deprecated, use 'in'
 
-You can also make pep8.py show the source code for each error, and
+You can also make ``pycodestyle.py`` show the source code for each error, and
 even the relevant text from PEP 8::
 
-  $ pep8 --show-source --show-pep8 testsuite/E40.py
+  $ pycodestyle --show-source --show-pep8 testsuite/E40.py
   testsuite/E40.py:2:10: E401 multiple imports on one line
   import os, sys
            ^
@@ -97,7 +92,7 @@ even the relevant text from PEP 8::
 
 Or you can display how often each error was found::
 
-  $ pep8 --statistics -qq Python-2.5/Lib
+  $ pycodestyle --statistics -qq Python-2.5/Lib
   232     E201 whitespace after '['
   599     E202 whitespace before ')'
   631     E203 whitespace before ','
@@ -111,15 +106,16 @@ Or you can display how often each error was found::
   612     W601 .has_key() is deprecated, use 'in'
   1188    W602 deprecated form of raising exception
 
-You can also make pep8.py show the error text in different formats by using --format having options default/pylint/custom::
+You can also make ``pycodestyle.py`` show the error text in different formats by
+using ``--format`` having options default/pylint/custom::
 
-  $ pep8 testsuite/E40.py --format=default
+  $ pycodestyle testsuite/E40.py --format=default
   testsuite/E40.py:2:10: E401 multiple imports on one line
 
-  $ pep8 testsuite/E40.py --format=pylint
+  $ pycodestyle testsuite/E40.py --format=pylint
   testsuite/E40.py:2: [E401] multiple imports on one line
 
-  $ pep8 testsuite/E40.py --format='%(path)s|%(row)d|%(col)d| %(code)s %(text)s'
+  $ pycodestyle testsuite/E40.py --format='%(path)s|%(row)d|%(col)d| %(code)s %(text)s'
   testsuite/E40.py|2|10| E401 multiple imports on one line
 
 Variables in the ``custom`` format option
@@ -140,8 +136,8 @@ Variables in the ``custom`` format option
 
 Quick help is available on the command line::
 
-  $ pep8 -h
-  Usage: pep8 [options] input ...
+  $ pycodestyle -h
+  Usage: pycodestyle [options] input ...
 
   Options:
     --version            show program's version number and exit
@@ -161,6 +157,8 @@ Quick help is available on the command line::
     --count              print total number of errors and warnings to standard
                          error and set exit code to 1 if total is not null
     --max-line-length=n  set maximum allowed line length (default: 79)
+    --max-doc-length=n   set maximum allowed doc line length and perform these
+                         checks (unchecked if not set)
     --hang-closing       hang closing bracket instead of matching indentation of
                          opening bracket's line
     --format=format      set the error format [default|pylint|<custom>]
@@ -171,13 +169,14 @@ Quick help is available on the command line::
       --benchmark        measure processing speed
 
     Configuration:
-      The project options are read from the [pep8] section of the tox.ini
-      file or the setup.cfg file located in any parent folder of the path(s)
-      being processed.  Allowed options are: exclude, filename, select,
-      ignore, max-line-length, hang-closing, count, format, quiet, show-pep8,
-      show-source, statistics, verbose.
+      The project options are read from the [pycodestyle] section of the
+      tox.ini file or the setup.cfg file located in any parent folder of the
+      path(s) being processed.  Allowed options are: exclude, filename,
+      select, ignore, max-line-length, max-doc-length, hang-closing, count,
+      format, quiet, show-pep8, show-source, statistics, verbose.
 
-      --config=path      user config file location (default: ~/.config/pep8)
+      --config=path      user config file location
+      (default: ~/.config/pycodestyle)
 
 
 Configuration
@@ -188,24 +187,25 @@ The behaviour may be configured at two levels, the user and project levels.
 At the user level, settings are read from the following locations:
 
 If on Windows:
-    ``~\.pep8``
+    ``~\.pycodestyle``
 
 Otherwise, if the :envvar:`XDG_CONFIG_HOME` environment variable is defined:
-    ``XDG_CONFIG_HOME/pep8``
+    ``XDG_CONFIG_HOME/pycodestyle``
 
 Else if :envvar:`XDG_CONFIG_HOME` is not defined:
-    ``~/.config/pep8``
+    ``~/.config/pycodestyle``
 
 Example::
 
-  [pep8]
+  [pycodestyle]
+  count = False
   ignore = E226,E302,E41
   max-line-length = 160
+  statistics = True
 
 At the project level, a ``setup.cfg`` file or a ``tox.ini`` file is read if
-present (``.pep8`` file is also supported, but it is deprecated).  If none of
-these files have a ``[pep8]`` section, no project specific configuration is
-loaded.
+present. If none of these files have a ``[pycodestyle]`` section, no project
+specific configuration is loaded.
 
 
 Error codes
@@ -232,6 +232,7 @@ This is the current list of error and warning codes:
 +------------+----------------------------------------------------------------------+
 | E116       | unexpected indentation (comment)                                     |
 +------------+----------------------------------------------------------------------+
+| E117       | over-indented                                                        |
 +------------+----------------------------------------------------------------------+
 | E121 (\*^) | continuation line under-indented for hanging indent                  |
 +------------+----------------------------------------------------------------------+
@@ -326,6 +327,10 @@ This is the current list of error and warning codes:
 +------------+----------------------------------------------------------------------+
 | E304       | blank lines found after function decorator                           |
 +------------+----------------------------------------------------------------------+
+| E305       | expected 2 blank lines after end of function or class                |
++------------+----------------------------------------------------------------------+
+| E306       | expected 1 blank line before a nested definition                     |
++------------+----------------------------------------------------------------------+
 +------------+----------------------------------------------------------------------+
 | **E4**     | *Import*                                                             |
 +------------+----------------------------------------------------------------------+
@@ -361,7 +366,15 @@ This is the current list of error and warning codes:
 +------------+----------------------------------------------------------------------+
 | E721 (^)   | do not compare types, use 'isinstance()'                             |
 +------------+----------------------------------------------------------------------+
+| E722       | do not use bare except, specify exception instead                    |
++------------+----------------------------------------------------------------------+
 | E731       | do not assign a lambda expression, use a def                         |
++------------+----------------------------------------------------------------------+
+| E741       | do not use variables named 'l', 'O', or 'I'                          |
++------------+----------------------------------------------------------------------+
+| E742       | do not define classes named 'l', 'O', or 'I'                         |
++------------+----------------------------------------------------------------------+
+| E743       | do not define functions named 'l', 'O', or 'I'                       |
 +------------+----------------------------------------------------------------------+
 +------------+----------------------------------------------------------------------+
 | **E9**     | *Runtime*                                                            |
@@ -392,7 +405,11 @@ This is the current list of error and warning codes:
 +------------+----------------------------------------------------------------------+
 | **W5**     | *Line break warning*                                                 |
 +------------+----------------------------------------------------------------------+
-| W503 (*)   | line break occurred before a binary operator                         |
+| W503 (*)   | line break before binary operator                                    |
++------------+----------------------------------------------------------------------+
+| W504 (*)   | line break after binary operator                                     |
++------------+----------------------------------------------------------------------+
+| W505 (\*^) | doc line too long (82 > 79 characters)                               |
 +------------+----------------------------------------------------------------------+
 +------------+----------------------------------------------------------------------+
 | **W6**     | *Deprecation warning*                                                |
@@ -405,13 +422,21 @@ This is the current list of error and warning codes:
 +------------+----------------------------------------------------------------------+
 | W604       | backticks are deprecated, use 'repr()'                               |
 +------------+----------------------------------------------------------------------+
+| W605       | invalid escape sequence '\x'                                         |
++------------+----------------------------------------------------------------------+
+| W606       | 'async' and 'await' are reserved keywords starting with Python 3.7   |
++------------+----------------------------------------------------------------------+
 
 
-**(*)** In the default configuration, the checks **E121**, **E123**, **E126**,
-**E133**, **E226**, **E241**, **E242**, **E704** and **W503** are ignored because
-they are not rules unanimously accepted, and `PEP 8`_ does not enforce them.  The
-check **E133** is mutually exclusive with check **E123**.  Use switch ``--hang-
-closing`` to report **E133** instead of **E123**.
+**(*)** In the default configuration, the checks **E121**, **E123**, **E126**, **E133**,
+**E226**, **E241**, **E242**, **E704**, **W503**, **W504** and **W505** are ignored
+because they are not rules unanimously accepted, and `PEP 8`_ does not enforce them.
+Please note that if the option **--ignore=errors** is used,
+the default configuration will be overridden and ignore only the check(s) you skip.
+The check **W503** is mutually exclusive with check **W504**.
+The check **E133** is mutually exclusive with check **E123**.  Use switch
+``--hang-closing`` to report **E133** instead of **E123**. Use switch
+``--max-doc-length=n`` to report **W505**.
 
 **(^)** These checks can be disabled at the line level using the ``# noqa``
 special comment.  This possibility should be reserved for special cases.
@@ -421,7 +446,7 @@ special comment.  This possibility should be reserved for special cases.
 
 Note: most errors can be listed with such one-liner::
 
-  $ python pep8.py --first --select E,W testsuite/ --format '%(code)s: %(text)s'
+  $ python pycodestyle.py --first --select E,W testsuite/ --format '%(code)s: %(text)s'
 
 
 .. _related-tools:
@@ -429,10 +454,10 @@ Note: most errors can be listed with such one-liner::
 Related tools
 -------------
 
-The `flake8 checker <https://flake8.readthedocs.org>`_ is a wrapper around
-``pep8`` and similar tools. It supports plugins.
+The `flake8 checker <https://flake8.readthedocs.io>`_ is a wrapper around
+``pycodestyle`` and similar tools. It supports plugins.
 
-Other tools which use ``pep8`` are referenced in the Wiki: `list of related
+Other tools which use ``pycodestyle`` are referenced in the Wiki: `list of related
 tools <https://github.com/pycqa/pycodestyle/wiki/RelatedTools>`_.
 
 .. _PEP 8: http://www.python.org/dev/peps/pep-0008/

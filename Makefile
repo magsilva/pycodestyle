@@ -1,13 +1,6 @@
-test :
-	python pep8.py --testsuite testsuite
+release:
+	umask 022 && chmod -R a+rX . && python setup.py sdist bdist_wheel
+	# twine upload dist/*
 
-selftest :
-	python pep8.py --statistics pep8.py
-
-doctest :
-	python pep8.py --doctest
-
-unittest :
-	python -m testsuite.test_all
-
-alltest : test selftest doctest unittest
+test:
+	tox

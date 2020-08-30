@@ -1,8 +1,7 @@
 if (
         x == (
             3
-        ) or
-        y == 4):
+        ) or y == 4):
     pass
 
 y = x == 2 \
@@ -17,15 +16,14 @@ if x == 2 \
         or y > 1 \
         or x == 3:
     pass
-
-
-if (foo == bar and
-        baz == frop):
+#: W503
+if (foo == bar
+        and baz == frop):
     pass
-
+#: W503
 if (
-    foo == bar and
-    baz == frop
+    foo == bar
+    and baz == frop
 ):
     pass
 
@@ -109,7 +107,7 @@ sat = 'AAA'    \
       'BBB'    \
       'iii'    \
       'CCC'
-
+#: W504 W504
 abricot = (3 +
            4 +
            5 + 6)
@@ -138,7 +136,7 @@ def long_function_name(
         var_one, var_two, var_three,
         var_four):
     print(var_one)
-
+#: W504
 if ((row < 0 or self.moduleCount <= row or
      col < 0 or self.moduleCount <= col)):
     raise Exception("%s,%s - %s" % (row, col, self.moduleCount))
@@ -183,23 +181,23 @@ if bar:
         "to match that of the opening "
         "bracket's line"
     )
-#
+#: W504
 # you want vertical alignment, so use a parens
 if ((foo.bar("baz") and
      foo.bar("frop")
      )):
     print "yes"
-
+#: W504
 # also ok, but starting to look like LISP
 if ((foo.bar("baz") and
      foo.bar("frop"))):
     print "yes"
-
+#: W504
 if (a == 2 or
     b == "abc def ghi"
          "jkl mno"):
     return True
-
+#: W504
 if (a == 2 or
     b == """abc def ghi
 jkl mno"""):
@@ -223,22 +221,19 @@ print 'l.{line}\t{pos}\t{name}\t{text}'.format(
 print('%-7d %s per second (%d total)' % (
       options.counters[key] / elapsed, key,
       options.counters[key]))
-
-
+#: W504
 if os.path.exists(os.path.join(path, PEP8_BIN)):
     cmd = ([os.path.join(path, PEP8_BIN)] +
            self._pep8_options(targetfile))
-
-
+#: W504
 fixed = (re.sub(r'\t+', ' ', target[c::-1], 1)[::-1] +
          target[c + 1:])
-
+#: W504
 fixed = (
     re.sub(r'\t+', ' ', target[c::-1], 1)[::-1] +
     target[c + 1:]
 )
-
-
+#: W504
 if foo is None and bar is "frop" and \
         blah == 'yeah':
     blah = 'yeahnah'
@@ -357,10 +352,10 @@ def qualify_by_address(self, cr, uid, ids, context=None,
     """ This gets called by the web server """
 
 
-_ipv4_re = re.compile('^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.'
-                      '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.'
-                      '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.'
-                      '(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')
+_ipv4_re = re.compile(r'^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.'
+                      r'(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.'
+                      r'(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.'
+                      r'(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')
 
 
 fct("""
@@ -399,6 +394,7 @@ def unicode2html(s):
                             .replace("'", '&#39;')
                             .replace('"', '&#34;')
                             .replace('\n', '<br>\n'))
+
 
 #
 parser.add_option('--count', action='store_true',
@@ -616,6 +612,7 @@ def other_example():
         for key, val in node.items()
     ))]
 
+
 foo([
     'bug'
 ])
@@ -642,3 +639,23 @@ print dedent(
         # more stuff
     )
 )
+
+
+def foo():
+    pass
+    raise 123 + \
+          123
+
+
+class Eggs:
+    pass
+    assert 123456 == \
+           123456
+
+
+def f1():
+    print('foo')
+    with open('/path/to/some/file/you/want/to/read') as file_1, \
+         open('/path/to/some/file/being/written', 'w') as file_2, \
+         open('just-making-sure-more-continuations-also-work'):
+        file_2.write(file_1.read())
